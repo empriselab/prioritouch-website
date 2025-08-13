@@ -98,15 +98,31 @@ body {
   border-radius: 10px !important;
 }
 
+/* Inline (page) layout: keep intrinsic aspect ratio */
 .publication-video video {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* or contain if you don't want cropping */
-  background-color: #000; /* optional: fill letterbox */
+  height: auto;            /* preserve ratio */
+  display: block;
 }
+
+/* When the element (or its wrapper) goes fullscreen, keep aspect with letterboxing */
+.publication-video:fullscreen,
+.publication-video :-webkit-full-screen,
+.publication-video :-ms-fullscreen {
+  background: #000;        /* letterbox bars */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.publication-video:fullscreen video,
+.publication-video :-webkit-full-screen video,
+.publication-video :-ms-fullscreen video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;     /* key: preserve aspect ratio */
+}
+
 
 .publication-body img {
 }
